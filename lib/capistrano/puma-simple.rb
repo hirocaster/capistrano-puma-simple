@@ -1,7 +1,1 @@
-require "capistrano/puma-simple/version"
-
-module Capistrano
-  module PumaSimple
-    # Your code goes here...
-  end
-end
+load File.expand_path('../tasks/puma.rake', __FILE__)

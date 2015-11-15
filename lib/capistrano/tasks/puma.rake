@@ -17,6 +17,8 @@ namespace :load do
     set :puma_worker_timeout, 60
     set :puma_init_active_record, false
     set :puma_preload_app, false
+    set :bundle_bins, fetch(:bundle_bins).to_a + %w(puma pumactl)
+    set :rbenv_map_bins, fetch(:rbenv_map_bins).to_a + %w(puma pumactl)
   end
 end
 
@@ -66,7 +68,7 @@ namespace :puma do
         end
         within current_path do
           with rack_env: fetch(:puma_env) do
-            execute :bundle, :exec, :puma, "-C #{fetch(:puma_conf)} --daemon"
+            execute :puma, "-C #{fetch(:puma_conf)} --daemon"
           end
         end
       end
@@ -82,7 +84,7 @@ namespace :puma do
             with rack_env: fetch(:puma_env) do
               if test "[ -f #{fetch(:puma_pid)} ]"
                 if test :kill, "-0 $( cat #{fetch(:puma_pid)} )"
-                  execute :bundle, :exec, :pumactl, "-S #{fetch(:puma_state)} -F #{fetch(:puma_conf)} #{command}"
+                  execute :pumactl, "-S #{fetch(:puma_state)} -F #{fetch(:puma_conf)} #{command}"
                 else
                   # delete invalid pid file , process is not running.
                   execute :rm, fetch(:puma_pid)
@@ -107,7 +109,7 @@ namespace :puma do
             with rack_env: fetch(:puma_env) do
               if (test "[ -f #{fetch(:puma_pid)} ]") && (test :kill, "-0 $( cat #{fetch(:puma_pid)} )")
                 # NOTE pid exist but state file is nonsense, so ignore that case
-                execute :bundle, :exec, :pumactl, "-S #{fetch(:puma_state)} -F #{fetch(:puma_conf)} #{command}"
+                execute :pumactl, "-S #{fetch(:puma_state)} -F #{fetch(:puma_conf)} #{command}"
               else
                 # Puma is not running or state file is not present : Run it
                 invoke "puma:start"

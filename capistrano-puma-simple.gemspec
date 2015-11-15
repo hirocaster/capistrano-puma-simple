@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "capistrano/puma/simple/version"
+require "capistrano/puma-simple/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano-puma-simple"
-  spec.version       = Capistrano::Puma::Simple::VERSION
+  spec.version       = Capistrano::PumaSimple::VERSION
   spec.authors       = ["hirocaster"]
   spec.email         = ["hohtsuka@gmail.com"]
-  spec.description   = "TODO: Write a gem description"
-  spec.summary       = "TODO: Write a gem summary"
+  spec.description   = "Puma simple integration for Capistrano3"
+  spec.summary       = "Puma simple integration for Capistrano3"
   spec.homepage      = ""
   spec.license       = "MIT"
 

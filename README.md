@@ -1,5 +1,7 @@
 # Capistrano::PumaSimple
 
+[![Code Climate](https://codeclimate.com/github/hirocaster/capistrano-puma-simple/badges/gpa.svg)](https://codeclimate.com/github/hirocaster/capistrano-puma-simple)
+
 Puma control by Capistrano
 
 ## Installation
